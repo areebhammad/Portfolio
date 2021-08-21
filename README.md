@@ -1,9 +1,5 @@
 # Personal portfolio
 
-[![Site preview](/public/social-image.png)](https://hamishw.com)
-
-A design portfolio to showcase a few projects. View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
-
 ## Install & run
 
 Make sure you have nodejs and npm installed. Install dependencies with:

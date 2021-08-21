@@ -256,11 +256,17 @@ const Contact = () => {
   );
 };
 
+
+
+function Contact() {
+  window.location = 'mailto:areebhammad@gmail.com';
+}
+<div onclick="sendEmail();">Send e-mail</div>;
 */
 }
 
 function Contact() {
-  window.location = 'mailto:areebhammad@gmail.com';
+  return (window.location = 'mailto:areebhammad@gmail.com');
 }
 <div onclick="sendEmail();">Send e-mail</div>;
 

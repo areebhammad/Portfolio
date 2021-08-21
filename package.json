@@ -1,9 +1,9 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
-  "homepage": "https://hamishw.com",
+  "homepage": "https://areebhammad.com",
   "description": "Portfolio site for Areeb Hammad",
-  "repository": "https://github.com/HamishMW/portfolio.git",
+  "repository": "https://github.com/areebhammad/Portfolio.git",
   "author": "Areeb Hammad",
   "devDependencies": {
     "@babel/core": "^7.12.3",
