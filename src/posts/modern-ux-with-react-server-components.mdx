@@ -1,0 +1,134 @@
+---
+slug: modern-ux-with-react-server-components
+title: Modern UX with React Server Components
+description: Earlier this week, Facebook's React revealed Zero-Bundle-Size React Server Components, promising lower bundle sizes and paint times, shifting the mental model of how modern applications are built.
+banner: modern-ux-with-react-server-components.jpg
+bannerPlaceholder: modern-ux-with-react-server-components-placeholder.jpg
+bannerAlt: An image depicting a React-powered web server and a fast application on a computer.
+tags: ['development', 'fullstack', 'react']
+date: 2020-12-24
+readTime: '00:03:00:00'
+---
+
+Earlier this week, Facebook's React revealed [Zero-Bundle-Size React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html), which allow you to selectively move components to the back-end, aiming to improve bundle size and initial responsiveness, creating a tidy user experience.
+
+This enables modern UX for server-driven applications, shifting the mental model of how modern applications are built.
+
+## Rendering on the Client
+
+Client components have not changed with this update.
+
+However, you can explicitly render components on the client by appending `.client.js` to their respective files.
+This tells React to not render them on the server, should they ever cross paths (more on this later).
+
+```jsx
+// Counter.client.js
+import { useState } from 'react';
+
+function Counter({ initialCount = 0 }) {
+  const [count, setCount] = useState(initialCount);
+
+  return <p onClick={() => setCount(count++)}>{count}</p>;
+}
+```
+
+## Rendering on the Server
+
+As described by their name, server components render behind-the-scenes, on the back-end.
+
+You can indicate server components to React by appending their files with `.server.js`.
+This tells React that these components should render on the server to later serialize to the client.
+
+A practical application of server components is rendering heavy dependencies and components on the server.
+This removes the burden on bundle size and initial paint time, improving responsiveness on the client.
+
+```jsx
+// Won't appear in bundle
+import { useHeavyMethod } from 'heavyDependency';
+
+function ServerComponent() {
+  const data = useHeavyMethod();
+
+  return <p>{data}</p>;
+}
+```
+
+## Code-Splitting on the Server
+
+Another practical application of server components replaces the old code-splitting model.
+
+It's a good practice to break down your bundle into smaller bundles to lazily serve to the client as needed.
+Prior to server-components, this would be accomplished with the `React.lazy` method, creating breakpoints to be served often when routing.
+
+```jsx
+// Client-side code-splitting by lazily-loading
+import { lazy } from 'react';
+
+const DefaultComponent = lazy(() => import('./DefaultComponent.js'));
+const AlternateComponent = lazy(() => import('./AlternateComponent.js'));
+
+function ClientComponent({ alternate }) {
+  if (alternate) return <AlternateComponent />;
+
+  return <DefaultComponent />;
+}
+```
+
+Lazily loading requires splitting imports with dynamic imports and leaves a nasty impression on initial interaction, tainting user experience.
+
+Server components solve this by treating all imports as possible code-splitting points, enabling the developer to choose the order of which components are used.
+This allows the client to fetch and use components much earlier than traditional methods.
+
+```jsx
+// Server-side code-splitting by default
+import DefaultComponent from './DefaultComponent.client.js';
+import AlternateComponent from './AlternateComponent.client.js';
+
+function ServerComponent({ alternate }) {
+  if (alternate) return <AlternateComponent />;
+
+  return <DefaultComponent />;
+}
+```
+
+## Caveats
+
+However, server components do not replace server-side rendering (SSR) and have some caveats of their own:
+
+- Server components cannot render interactive components, forgoing hooks and events, and browser APIs. This leaves the burden of interaction to the client.
+- Server components cannot pass props that cannot serialize over a network such as JSON. This means that functions and other complex data cannot transfer from the server to the client.
+
+## Mixing it Up
+
+Server components cannot take advantage of functional props or advanced state, leaving that to the client.
+However, you can still use client components with server components to add back this interaction — they just won't render on the server.
+
+```jsx
+// Counter.server.js
+import { useHeavyMethod } from 'heavyDependency';
+import ClientCounter from './Counter.client.js';
+
+function ServerComponent() {
+  const initialCount = useHeavyMethod();
+
+  return (
+    <div className="counter-wrapper">
+      <p>Initial Count: {initialCount}</p>
+      <ClientCounter initialCount={initialCount} />
+    </div>
+  );
+}
+```
+
+One thing to note here is that you can import and use client components within server components, but you cannot do the same with server components inside client components.
+
+You can still pass server components as children to client components, but only within the scope of a server component.
+
+## Conclusion
+
+React server components empower developers to create lighter and tidier experiences by moving components off of the front-end runtime.
+This completely changes the way that we work across front and back ends, treating them as one.
+
+I am excited to see where this goes as Facebook continue research and development on this feature.
+
+You can [learn more about server components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) and play around with their [official demo](https://github.com/reactjs/server-components-demo).
