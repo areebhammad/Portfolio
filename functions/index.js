@@ -1,4 +1,4 @@
-const serverless = require('serverless-http');
+/*const serverless = require('serverless-http');
 const nodemailer = require('nodemailer');
 const express = require('express');
 const cors = require('cors');
@@ -67,3 +67,4 @@ app.post('/message', async (req, res) => {
 });
 
 module.exports.handler = serverless(app);
+*/
