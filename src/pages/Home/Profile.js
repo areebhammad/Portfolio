@@ -5,13 +5,13 @@ import Link from 'components/Link';
 import { Button } from 'components/Button';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
-import Image from 'components/Image';
+/*import Image from 'components/Image';*/
 import Section from 'components/Section';
-import ProfileImg from 'assets/profile.jpg';
+/*import ProfileImg from 'assets/profile.jpg';
 import ProfileImgLarge from 'assets/profile-large.jpg';
-import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
+import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';*/
 import { reflow } from 'utils/transition';
-import { media } from 'utils/style';
+/*import { media } from 'utils/style';*/
 //import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
 import Heading from 'components/Heading';
 import Text from 'components/Text';
