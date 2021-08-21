@@ -255,7 +255,6 @@ const Contact = () => {
   );
 };
 */
-'use strict';
 
 function Contact() {
   window.location = 'mailto:areebhammad@gmail.com';
