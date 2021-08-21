@@ -1,5 +1,4 @@
-{
-  /*
+/*
   import { useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
@@ -255,19 +254,18 @@ const Contact = () => {
     </Section>
   );
 };
-
-
+*/
+'use strict';
 
 function Contact() {
   window.location = 'mailto:areebhammad@gmail.com';
 }
-<div onclick="sendEmail();">Send e-mail</div>;
-*/
-}
 
-function Contact() {
+/*<div onclick="sendEmail();">Send e-mail</div>;*/
+
+/*function Contact() {
   return (window.location = 'mailto:areebhammad@gmail.com');
 }
-<div onclick="sendEmail();">Send e-mail</div>;
+<div onclick="sendEmail();">Send e-mail</div>;*/
 
 export default Contact;
