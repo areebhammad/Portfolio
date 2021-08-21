@@ -258,6 +258,7 @@ const Contact = () => {
 
 function Contact() {
   window.location = 'mailto:areebhammad@gmail.com';
+  return Contact();
 }
 
 /*<div onclick="sendEmail();">Send e-mail</div>;*/
