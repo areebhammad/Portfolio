@@ -1,4 +1,4 @@
-/*exports.handler = async (event, context, callback) => {
+exports.handler = async (event, context, callback) => {
   const { request, response } = event.Records[0].cf;
   const headers = response.headers;
 
@@ -83,4 +83,4 @@
   ];
 
   callback(null, response);
-};*/
+};
